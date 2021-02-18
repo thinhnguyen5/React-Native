@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontFamily: 'Avenir',
-        color: 'Black',
+        color: '#000000',
         fontWeight: '400'
     }
 });
