@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 import icBack from '../../media/appIcon/back_white.png';
-import icLogo from '../../media/appIcon/1.png';
+import icLogo from '../../media/appIcon/ic_logo.png';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 

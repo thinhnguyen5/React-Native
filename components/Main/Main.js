@@ -8,6 +8,7 @@ import Menu from './Menu';
 import getToken from '../../api/getToken';
 //import global from '../global';
 
+
 export default class Main extends Component {
     componentDidMount() {
         getToken()

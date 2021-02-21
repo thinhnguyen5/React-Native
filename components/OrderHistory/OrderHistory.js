@@ -1,104 +1,83 @@
 import React, { Component } from 'react';
-import {
-    View, TouchableOpacity, Text, Image, StyleSheet, TextInput
-} from 'react-native';
+import { View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import backSpecial from '../../media/appIcon/backs.png';
+//import getOrderHistory from '../../api/getOrderHistory';
+import getToken from '../../api/getToken';
 
-export default class ChangeInfo extends Component {
+export default class OrderHistory extends Component {
     constructor(props) {
         super(props);
-        const { name, address, phone } = props.user;
-        this.state = { 
-            txtName: name, 
-            txtAddress: address, 
-            txtPhone: phone 
-        };
+        this.state = { arrOrder: [] };
     }
+
+    componentDidMount() {
+        getToken()
+        .then(token => getOrderHistory(token))
+        .then(arrOrder => this.setState({ arrOrder }))
+        .catch(err => console.log(err));
+    }
+
     goBackToMain() {
         const { navigator } = this.props;
         navigator.pop();
     }
-
     render() {
-        const {
-            wrapper, header, headerTitle, backIconStyle, body,
-            signInContainer, signInTextStyle, textInput
-        } = styles;
-        const { txtName, txtAddress, txtPhone } = this.state;
+        const { wrapper, header, headerTitle, backIconStyle, body, orderRow } = styles;
         return (
             <View style={wrapper}>
                 <View style={header}>
                     <View />
-                    <Text style={headerTitle}>User Infomation</Text>
+                    <Text style={headerTitle}>Order History</Text>
                     <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
                         <Image source={backSpecial} style={backIconStyle} />
                     </TouchableOpacity>
                 </View>
                 <View style={body}>
-                    <TextInput
-                        style={textInput}
-                        placeholder="Enter your name"
-                        autoCapitalize="none"
-                        value={txtName}
-                        onChangeText={text => this.setState({ ...this.state, txtName: text })}
-                        underlineColorAndroid="transparent"
-                    />
-                    <TextInput
-                        style={textInput}
-                        placeholder="Enter your address"
-                        autoCapitalize="none"
-                        value={txtAddress}
-                        onChangeText={text => this.setState({ ...this.state, txtAddress: text })}
-                        underlineColorAndroid="transparent"
-                    />
-                    <TextInput
-                        style={textInput}
-                        placeholder="Enter your phone number"
-                        autoCapitalize="none"
-                        value={txtPhone}
-                        onChangeText={text => this.setState({ ...this.state, txtPhone: text })}
-                        underlineColorAndroid="transparent"
-                    />
-                    <TouchableOpacity style={signInContainer}>
-                        <Text style={signInTextStyle}>CHANGE YOUR INFOMATION</Text>
-                    </TouchableOpacity>
+                    <ScrollView>
+                        { this.state.arrOrder.map(e => (
+                            <View style={orderRow} key={e.id}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
+                                    <Text style={{ color: '#2ABB9C' }}>ORD{e.id}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
+                                    <Text style={{ color: '#C21C70' }}>{e.date_order}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
+                                    <Text style={{ color: '#2ABB9C' }}>{e.status ? 'Completed' : 'Pending'}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
+                                    <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>{e.total}$</Text>
+                                </View>
+                            </View>
+                        )) }
+                    </ScrollView>
                 </View>
             </View>
         );
     }
 }
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     wrapper: { flex: 1, backgroundColor: '#fff' },
-    header: { flex: 1, backgroundColor: '#2ABB9C', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 10 },// eslint-disable-line
-    headerTitle: { fontFamily: 'Avenir', color: '#fff', fontSize: 20 },
+    header: { flex: 1, backgroundColor: 'rgba(201, 76, 76, 0.3)', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 10 },// eslint-disable-line
+    headerTitle: { fontFamily: 'Avenir', color: '#000000', fontSize: 20 },
     backIconStyle: { width: 30, height: 30 },
-    body: { flex: 10, backgroundColor: '#F6F6F6', justifyContent: 'center' },
-    textInput: {
-        height: 45,
-        marginHorizontal: 20,
-        backgroundColor: '#FFFFFF',
-        fontFamily: 'Avenir',
-        paddingLeft: 20,
-        borderRadius: 20,
-        marginBottom: 20,
-        borderColor: '#2ABB9C',
-        borderWidth: 1
-    },
-    signInTextStyle: {
-        color: '#FFF', fontFamily: 'Avenir', fontWeight: '600', paddingHorizontal: 20
-    },
-    signInContainer: {
-        marginHorizontal: 20,
-        backgroundColor: '#2ABB9C',
-        borderRadius: 20,
-        height: 45,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'stretch'
-    },
-    signInStyle: {
-        flex: 3,
-        marginTop: 50
+    body: { flex: 10, backgroundColor: '#F6F6F6' },
+    orderRow: {
+        height: width / 3,
+        backgroundColor: '#FFF',
+        margin: 10,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: '#DFDFDF',
+        shadowOpacity: 0.2,
+        padding: 10,
+        borderRadius: 2,
+        justifyContent: 'space-around'
     }
 });

@@ -3,9 +3,9 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Authentication from './components/Authentication/Authentication';
-//import ChangeInfo from './components/ChangeInfo/ChangeInfo';
+import ChangeInfo from './components/ChangeInfo/ChangeInfo';
 import Main from './components/Main/Main';
-//import OrderHistory from './components/OrderHistory/OrderHistory';
+import OrderHistory from './components/OrderHistory/OrderHistory';
 import { Ionicons } from 'react-native-vector-icons';
 
 StatusBar.setHidden(true);
@@ -30,14 +30,14 @@ export default class App extends Component {
                   name="Authentication" 
                   component={Authentication} 
                 />
-                {/* <Tab.Screen 
+                <Tab.Screen 
                   name="ChangeInfo" 
                   component={ChangeInfo} 
                 />
                 <Tab.Screen 
                   name="OrderHistory" 
-                  component={OrderHistory}  */}
-                {/* /> */}
+                  component={OrderHistory}  
+                />  
               </Tab.Navigator>
             </NavigationContainer>
           )
