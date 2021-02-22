@@ -3,7 +3,6 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Authentication from './components/Authentication/Authentication';
-import ChangeInfo from './components/ChangeInfo/ChangeInfo';
 import Main from './components/Main/Main';
 import AddPost from './components/AddPost/AddPost';
 import { Ionicons } from 'react-native-vector-icons';
@@ -35,14 +34,6 @@ export default class App extends Component {
                     }}
                 />
                 <Tab.Screen 
-                  name="ChangeInfo" 
-                  component={ChangeInfo} 
-                  options={{ 
-                    tabBarIcon: ({ color, size }) => (
-                      <Ionicons name="settings-outline" color={color} size={size} />)
-                    }}
-                />
-                 <Tab.Screen 
                   name="AddPost" 
                   component={AddPost}  
                   options={{ 
