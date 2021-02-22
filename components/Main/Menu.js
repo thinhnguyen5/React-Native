@@ -26,14 +26,11 @@ class Menu extends Component {
         const { navigator } = this.props;
         navigator.push({ name: 'AUTHENTICATION' });
     }
-    gotoChangeInfo() {
+    gotoAddPost() {
         const { navigator } = this.props;
-        navigator.push({ name: 'CHANGE_INFO', user: this.state.user });
+        navigator.push({ name: 'ADD_POST'});
     }
-    gotoOrderHistory() {
-        const { navigator } = this.props;
-        navigator.push({ name: 'ORDER_HISTORY' });
-    }
+    
     render() {
         const { 
             container, profile, btnStyle, btnText, 
@@ -52,10 +49,7 @@ class Menu extends Component {
             <View style={loginContainer}>
                 <Text style={username}>{user ? user.name : ''}</Text>
                 <View>
-                    <TouchableOpacity style={btnSignInStyle} onPress={this.gotoOrderHistory.bind(this)}>
-                        <Text style={btnTextSignIn}>Order History</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={btnSignInStyle} onPress={this.gotoChangeInfo.bind(this)}>
+                    <TouchableOpacity style={btnSignInStyle} onPress={this.gotoAddPost.bind(this)}>
                         <Text style={btnTextSignIn}>Change Info</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={btnSignInStyle} onPress={this.onSignOut.bind(this)}>
@@ -78,7 +72,7 @@ class Menu extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#34B089',
+        backgroundColor: 'rgba(201, 76, 76, 0.3)',
         borderRightWidth: 3,
         borderColor: '#fff',
         alignItems: 'center'
@@ -98,7 +92,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 70
     },
     btnText: {
-        color: '#34B089',
+        color: '#000000',
         fontFamily: 'Avenir', 
         fontSize: 20
     },

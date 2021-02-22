@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 //import { View, Text, TouchableOpacity } from 'react-native';
 import Drawer from 'react-native-drawer';
-
 import Menu from './Menu';
-//import Shop from './Shop/Shop';
-//import checkLogin from '../../api/checkLogin';
+import Header from './Shop/Header';
 import getToken from '../../api/getToken';
 //import global from '../global';
 
@@ -36,3 +34,9 @@ export default class Main extends Component {
         );
     }
 }
+
+
+
+
+
+
