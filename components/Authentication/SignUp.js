@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-//mport register from '../../api/register';
+
 
 export default class SignUp extends Component {
     constructor(props) {
