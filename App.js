@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View, Text, Navigator} from 'react-native';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'

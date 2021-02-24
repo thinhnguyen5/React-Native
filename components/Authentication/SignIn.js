@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
-// import signIn from '../../api/signIn';
+import signIn from '../../api/signIn';
 
-// import saveToken from '../../api/saveToken';
+import saveToken from '../../api/saveToken';
 
 export default class SignIn extends Component {
     constructor(props) {
