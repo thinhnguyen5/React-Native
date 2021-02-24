@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-
+import register from '../../api/register';
 
 export default class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            email: '',
             password: '',
             rePassword: ''
         };
@@ -24,24 +23,9 @@ export default class SignUp extends Component {
         );
     }
 
-    onFail() {
-        Alert.alert(
-            'Notice',
-            'Email has been used by other',
-            [
-                { text: 'OK', onPress: () => this.removeEmail.bind(this) }
-            ],
-            { cancelable: false }
-        );
-    }
-
-    removeEmail() {
-        this.setState({ email: '' });
-    }
-
     registerUser() {
-        const { name, email, password } = this.state;
-        register(email, name, password)
+        const { name, password } = this.state;
+        register(name, password)
         .then(res => {
             if (res === 'Success') return this.onSuccess();
             this.onFail();
@@ -57,12 +41,6 @@ export default class SignUp extends Component {
                     placeholder="Enter your name" 
                     value={this.state.name}
                     onChangeText={text => this.setState({ name: text })}
-                />
-                <TextInput 
-                    style={inputStyle} 
-                    placeholder="Enter your email" 
-                    value={this.state.email}
-                    onChangeText={text => this.setState({ email: text })}
                 />
                 <TextInput 
                     style={inputStyle} 

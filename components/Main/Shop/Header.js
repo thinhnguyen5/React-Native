@@ -7,7 +7,7 @@ import icMenu from '../../../media/appIcon/ic_menu.png';
 
 const { height } = Dimensions.get('window');
 
-export default class Main extends Component {
+export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
