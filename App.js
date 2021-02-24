@@ -18,49 +18,31 @@ export default class App extends Component {
         return (
             <NavigationContainer> 
               <Tab.Navigator>
-                <Tab.Screen 
+                 <Tab.Screen 
                   name="Main" 
                   component={Main} 
                   options={{ 
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons name="ios-home" color={color} size={size} />)
-                  }}>
-                </Tab.Screen>
-                
+                  }}
+                /> 
                 <Tab.Screen 
-                  name="Profile" 
+                  name="Authentication" 
+                  component={Authentication} 
                   options={{ 
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons name="person-outline" color={color} size={size} />)
-                    }}>
-                      {props => <Authentication
-                      {...props}
-                      apiURI='https://shopping-api-app.herokuapp.com/users'
-                      userLogin={this.userLogin}
-                      successScreen="Profile"
-                      token={this.state.token}
-                      user={this.state.user}
-                      userLogout={this.userLogout}
-                      products={this.state.products}
-                    />}
-                </Tab.Screen>
-               
+                    }}
+                />
                 <Tab.Screen 
                   name="AddPost" 
+                  component={AddPost}  
                   options={{ 
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons name="add-circle-outline" color={color} size={size} />)
-                    }}>
-                      {props => <AddPost
-                      {...props}
-                      apiURI='https://shopping-api-app.herokuapp.com/products'
-                      userLogin={this.userLogin}
-                      successScreen="postProduct"
-                      token={this.state.token}
-                      user={this.state.user}
-                    />}
-                </Tab.Screen>
-                </Tab.Navigator>
+                    }}
+                />  
+              </Tab.Navigator>
             </NavigationContainer>
           )
     };
