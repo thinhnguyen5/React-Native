@@ -41,7 +41,7 @@ export default class Authentication extends Component {
         return (
             <View style={container}>
                 <View style={row1}>
-                    <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
+                    <TouchableOpacity onPress={this.props.navigation.goBack}>
                         <Image source={icBack} style={iconStyle} />
                     </TouchableOpacity>
                     <Text style={titleStyle}>Sneaker</Text>

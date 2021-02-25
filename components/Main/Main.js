@@ -6,7 +6,7 @@ import saveToken from '../../api/saveToken';
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = { user: null };
+        this.state = { user: true };
         global.onSignIn = this.onSignIn.bind(this);
     }
     onSignIn(user) {
@@ -39,16 +39,21 @@ class Main extends Component {
                 <TouchableOpacity style={btnStyle} onPress={this.gotoAuthentication.bind(this)}>
                     <Text style={btnText}>Sign In</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity style={btnStyle} onPress={this.gotoAuthentication.bind(this)}>
+                    <Text style={btnText}>Sign Up</Text>
+                </TouchableOpacity>
                 
             </View>
+            
         );
         
         const loginJSX = (
             <View style={loginContainer}>
-                <Text style={username}>{user ? user.name : ''}</Text>
+                <Text style={username}>{user ? user.name : ''}Thinh Nguyen dz</Text>
                 <View>
                     <TouchableOpacity style={btnSignInStyle} onPress={this.gotoAddPost.bind(this)}>
-                        <Text style={btnTextSignIn}>AddPost</Text>
+                        <Text style={btnTextSignIn}>Add a new product</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={btnSignInStyle} onPress={this.onSignOut.bind(this)}>
                         <Text style={btnTextSignIn}>Sign out</Text>
@@ -87,7 +92,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
-        paddingHorizontal:100
+        paddingHorizontal:100,
+        marginBottom: 30
     },
     btnText: {
         color: '#000000',
@@ -98,13 +104,13 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#fff',
         borderRadius: 5,
-        width: 200,
+        width: 300,
         marginBottom: 10,
         justifyContent: 'center',
         paddingLeft: 10
     },
     btnTextSignIn: {
-        color: '#34B089',
+        color: '#000000',
         fontSize: 15
     },
     loginContainer: {
@@ -113,9 +119,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     username: {
-        color: '#fff', 
+        color: '#000000', 
         fontFamily: 'Avenir', 
-        fontSize: 15
+        fontSize: 30
     }
 });
 

@@ -7,17 +7,25 @@ export default class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            username: '',
             password: ''
         };
     }
 
     onSignIn() {
-        const { email, password } = this.state;
-        signIn(email, password)
+        const { username, password } = this.state;
+        signIn(username, password)
+        fetch(props.apiURI + '/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+          })
             .then(res => {
                 global.onSignIn(res.user);
-                this.props.goBackToMain();
+                // this.props.goBackToMain();
                 saveToken(res.token);
             })
             .catch(err => console.log(err));
@@ -25,14 +33,14 @@ export default class SignIn extends Component {
 
     render() {
         const { inputStyle, bigButton, buttonText } = styles;
-        const { email, password } = this.state;
+        const { username, password } = this.state;
         return (
             <View>
                 <TextInput
                     style={inputStyle}
-                    placeholder="Enter your email"
-                    value={email}
-                    onChangeText={text => this.setState({ email: text })}
+                    placeholder="Enter your username"
+                    value={username}
+                    onChangeText={text => this.setState({ username: text })}
                 />
                 <TextInput
                     style={inputStyle}

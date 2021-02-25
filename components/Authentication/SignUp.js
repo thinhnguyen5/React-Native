@@ -1,67 +1,53 @@
-import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { Component, useState } from 'react';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert, Button } from 'react-native';
 import register from '../../api/register';
 
-export default class SignUp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            password: '',
-            rePassword: ''
-        };
+const SignUp = () => {
+    const [username, setusername] = useState('');
+    const [password, setpassword] = useState('');
+    const [rePassword, setrePassword] = useState('');
+    const registerUser = () => {
+        if(password != rePassword) {
+            alert("it is not the same!");
+        }
+        else {
+            alert("register successful!");
+        }
     }
-
-    onSuccess() {
-        Alert.alert(
-            'Notice',
-            'Sign up successfully',
-            [
-                { text: 'OK', onPress: this.props.gotoSignIn() }
-            ],
-            { cancelable: false }
-        );
-    }
-
-    registerUser() {
-        const { name, password } = this.state;
-        register(name, password)
-        .then(res => {
-            if (res === 'Success') return this.onSuccess();
-            this.onFail();
-        });
-    }
-
-    render() {
-        const { inputStyle, bigButton, buttonText } = styles;
-        return (
-            <View>
+    return (
+        <View>
                 <TextInput 
-                    style={inputStyle} 
+                    style={styles.inputStyle} 
                     placeholder="Enter your name" 
-                    value={this.state.name}
-                    onChangeText={text => this.setState({ name: text })}
+                    value={username}
+                    onChangeText={(txtUsername) => setusername(txtUsername)}
                 />
                 <TextInput 
-                    style={inputStyle} 
+                    style={styles.inputStyle} 
                     placeholder="Enter your password" 
-                    value={this.state.password}
+                    value={password}
                     secureTextEntry
-                    onChangeText={text => this.setState({ password: text })}
+                    onChangeText={(txtPassword) => setpassword(txtPassword)}
                 />
                 <TextInput 
-                    style={inputStyle} 
+                    style={styles.inputStyle} 
                     placeholder="Re-enter your password" 
-                    value={this.state.rePassword}
+                    value={rePassword}
                     secureTextEntry
-                    onChangeText={text => this.setState({ rePassword: text })}
+                    onChangeText={(txtRepassword) => setrePassword(txtRepassword)}
                 />
-                <TouchableOpacity style={bigButton} onPress={this.registerUser.bind(this)}>
-                    <Text style={buttonText}>SIGN UP NOW</Text>
+                <TouchableOpacity style={styles.bigButton} onPress={() => registerUser()}>
+                    <Text style={styles.buttonText}>SIGN UP NOW</Text>
                 </TouchableOpacity>
+                {/* 
+                <Button title="test" 
+                    style={styles.bigButton}
+                    onPress= {() => this.registerUser()}
+                />
+                */}
+                
             </View>
-        );
-    }
+    )
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +60,7 @@ const styles = StyleSheet.create({
     },
     bigButton: {
         height: 50,
-        borderRadius: 20,
+        borderRadius: 50,
         borderWidth: 1,
         borderColor: '#fff',
         alignItems: 'center',
@@ -86,3 +72,5 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     }
 });
+
+export default SignUp;

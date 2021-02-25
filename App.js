@@ -7,25 +7,34 @@ import Authentication from './components/Authentication/Authentication';
 import Main from './components/Main/Main';
 import AddPost from './components/AddPost/AddPost';
 import { Ionicons } from 'react-native-vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 StatusBar.setHidden(true);
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default class App extends Component {
 
     render (){
+      createMainStack = () =>
+        <Stack.Navigator>
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Authentication" component={Authentication} />
+        </Stack.Navigator>
+
         return (
             <NavigationContainer> 
               <Tab.Navigator>
-                 <Tab.Screen 
+                <Tab.Screen 
                   name="Main" 
-                  component={Main} 
+                  children={createMainStack}
                   options={{ 
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons name="ios-home" color={color} size={size} />)
                   }}
-                /> 
+                />
                 <Tab.Screen 
                   name="Authentication" 
                   component={Authentication} 
