@@ -94,8 +94,8 @@ class Main extends Component {
         const Card = ({product}) => {
             return (
                 <TouchableHighlight
-                    // onPress={(navigation) => navigation.navigate('Details', product)}
-                    onPress={() => alert("Main Page")}
+                    onPress={(navigation) => this.props.navigation.navigate('Details', product)}
+                    // onPress={() => alert("Main Page")}
                 >
                     <View style={styles.ItemContainer}>
                         <View>
