@@ -11,6 +11,7 @@ class Main extends Component {
         super(props);
         this.state = { user: null,
             productOrigin: items,
+            products: [],
             strSearch: ''
         };
         global.onSignIn = this.onSignIn.bind(this);
@@ -33,12 +34,31 @@ class Main extends Component {
         navigator.push({ name: 'ADD_POST'});
     }
 
-    handleSearch() {
-        console.log("handleSearch");
+    handleSearch(txtSearch) {
+        // console.log(txtSearch);
+        let {productOrigin} = this.state;
+        let tempProduct = [];
+        if(txtSearch.length > 0) {
+            tempProduct = productOrigin.filter(p => p.title.match(txtSearch))
+            if(tempProduct) {
+                this.setState({
+                    products: tempProduct
+                })
+            }
+            else {
+                console.log("No Results");
+            }
+        }
+        else {
+            this.setState({
+                products: productOrigin
+            })
+            console.log("Old Array: ", this.state.products);
+        }
     }
     
     render() {
-        console.log(this.state.productOrigin);
+        // console.log(this.state.productOrigin);
         const { 
             container, profile, btnStyle, btnText, 
             btnSignInStyle, btnTextSignIn, loginContainer,
@@ -99,14 +119,14 @@ class Main extends Component {
                     <View style={styles.SearchContainer} >
                         <TextInput style={styles.InputContainer}
                             placeholder="what are you looking for?"
-                            value= ''
-                            onChangeText= {() => this.handleSearch()}
+                            defaultValue= {this.state.strSearch}
+                            onChangeText= {(txt) => this.handleSearch(txt)}
                         />
                     </View>
                     <FlatList 
                         showsVerticalScrollIndicator={false}
                         numColumns={1}
-                        data={this.state.productOrigin}
+                        data={this.state.products}
                         renderItem={({ item }) => <Card product={item} />}
                     />
                 </View>
