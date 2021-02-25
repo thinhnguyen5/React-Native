@@ -84,7 +84,7 @@ const AddPost = (props) => {
     fetch(props.apiURI + '/products', {
       method: 'POST',
       body: JSON.stringify({
-        idusers: props.user.id,
+        // idusers: props.user.id,
         title: title,
         category: category,
         images: images,
@@ -124,10 +124,7 @@ const AddPost = (props) => {
 
   }
 
-  if (props.user === null) {
-    return (<LoadingScreen></LoadingScreen>)
-  }
-  else {
+
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.topBar}>
@@ -228,21 +225,12 @@ const AddPost = (props) => {
                 <Text style={styles.primaryButtonText}>Add post</Text>
               </View>
             </TouchableHighlight>
-            <Button
-              title="Cancel"
-              color="#000000"
-              onPress={
-                () => props.navigation.reset({
-                  index: 0,
-                  routes: [{ name: 'Login' }],
-                })
-              } />
           </View>
         </ScrollView>
       </View>
     )
   }
-}
+
 
 const styles = StyleSheet.create({
   inputBox: {

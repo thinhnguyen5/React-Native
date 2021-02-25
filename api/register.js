@@ -1,4 +1,4 @@
-const register = (email, name, password) => (
+const register = ( name, password) => (
     fetch('https://shopping-api-app.herokuapp.com/users',
     {   
         method: 'POST',
@@ -6,7 +6,7 @@ const register = (email, name, password) => (
             'Content-Type': 'application/json',
             Accept: 'application/json'
         },
-        body: JSON.stringify({ email, name, password })
+        body: JSON.stringify({  name, password })
     })
     .then(res => res.text())
 );

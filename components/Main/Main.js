@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
-        paddingHorizontal:100
+        paddingHorizontal:100,
+        marginBottom: 30
     },
     btnText: {
         color: '#000000',
@@ -139,13 +140,13 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#fff',
         borderRadius: 5,
-        width: 200,
+        width: 300,
         marginBottom: 10,
         justifyContent: 'center',
         paddingLeft: 10
     },
     btnTextSignIn: {
-        color: '#34B089',
+        color: '#000000',
         fontSize: 15
     },
     loginContainer: {
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     username: {
-        color: '#fff', 
+        color: '#000000', 
         fontFamily: 'Avenir', 
         fontSize: 15
     },
