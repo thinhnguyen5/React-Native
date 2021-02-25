@@ -46,7 +46,7 @@ class Main extends Component {
                 })
             }
             else {
-                console.log("No Results");
+                alert("No Results");
             }
         }
         else {
@@ -93,7 +93,10 @@ class Main extends Component {
         //get products//
         const Card = ({product}) => {
             return (
-                <TouchableHighlight>
+                <TouchableHighlight
+                    // onPress={(navigation) => navigation.navigate('Details', product)}
+                    onPress={() => alert("Main Page")}
+                >
                     <View style={styles.ItemContainer}>
                         <View>
                             <Image
@@ -209,9 +212,3 @@ const styles = StyleSheet.create({
 });
 
 export default Main;
-
-
-
-
-
-
