@@ -59,36 +59,6 @@ class Main extends Component {
     
     render() {
         // console.log(this.state.productOrigin);
-        const { 
-            container, profile, btnStyle, btnText, 
-            btnSignInStyle, btnTextSignIn, loginContainer,
-            username
-        } = styles;
-        const { user } = this.state;
-        const logoutJSX = (
-            <View style={{ flex: 1 }}>
-                <TouchableOpacity style={btnStyle} onPress={this.gotoAuthentication.bind(this)}>
-                    <Text style={btnText}>Sign In</Text>
-                </TouchableOpacity>
-                
-            </View>
-        );
-        
-        const loginJSX = (
-            <View style={loginContainer}>
-                <Text style={username}>{user ? user.name : ''}</Text>
-                <View>
-                    <TouchableOpacity style={btnSignInStyle} onPress={this.gotoAddPost.bind(this)}>
-                        <Text style={btnTextSignIn}>AddPost</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={btnSignInStyle} onPress={this.onSignOut.bind(this)}>
-                        <Text style={btnTextSignIn}>Sign out</Text>
-                    </TouchableOpacity>
-                </View>
-                <View />
-            </View>
-        );
-        const mainJSX = this.state.user ? loginJSX : logoutJSX;
 
         //get products//
         const Card = ({product}) => {
@@ -116,7 +86,7 @@ class Main extends Component {
         }
         return (
             <ScrollView>
-                <View style={container}>
+                <View style={styles.container}>
                     {/*<Image source={profileIcon} style={profile} />
         { mainJSX } */}
                     <View style={styles.SearchContainer} >

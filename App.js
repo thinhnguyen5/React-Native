@@ -22,6 +22,7 @@ export default class App extends Component {
         <Stack.Navigator>
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen name="Authentication" component={Authentication} />
         </Stack.Navigator>
 
         return (
