@@ -20,8 +20,8 @@ export default class App extends Component {
     render (){
       createMainStack = () =>
         <Stack.Navigator>
-          <Stack.Screen name="Main Page" component={Main} />
-          <Stack.Screen name="Details Page" component={Details} />
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Details" component={Details} />
         </Stack.Navigator>
 
         return (
