@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import profileIcon from '../../media/temp/profile.png';
 import saveToken from '../../api/saveToken';
+import items from '../../data';
+import { FlatList, ScrollView, TextInput, TouchableHighlight } from 'react-native-gesture-handler';
+import FontAwesome5 from '@expo/vector-icons';
 
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.state = { user: null };
+        this.state = { user: null,
+            productOrigin: items,
+            strSearch: ''
+        };
         global.onSignIn = this.onSignIn.bind(this);
     }
     onSignIn(user) {
@@ -26,8 +32,13 @@ class Main extends Component {
         const { navigator } = this.props;
         navigator.push({ name: 'ADD_POST'});
     }
+
+    handleSearch() {
+        console.log("handleSearch");
+    }
     
     render() {
+        console.log(this.state.productOrigin);
         const { 
             container, profile, btnStyle, btnText, 
             btnSignInStyle, btnTextSignIn, loginContainer,
@@ -58,11 +69,48 @@ class Main extends Component {
             </View>
         );
         const mainJSX = this.state.user ? loginJSX : logoutJSX;
+
+        //get products//
+        const Card = ({product}) => {
+            return (
+                <TouchableHighlight>
+                    <View style={styles.ItemContainer}>
+                        <View>
+                            <Image
+                                style={{
+                                    height: 130, width: 250,
+                                    margin: 5, resizeMode: 'stretch'
+                                }}
+                                source={{ uri: product.image[0] }}
+                            />
+                        </View>
+                        <View>
+                            <Text>{product.title}</Text>
+                        </View>                    
+                    </View>
+                </TouchableHighlight>
+            )
+        }
         return (
-            <View style={container}>
-                <Image source={profileIcon} style={profile} />
-                { mainJSX }
-            </View>
+            <ScrollView>
+                <View style={container}>
+                    {/*<Image source={profileIcon} style={profile} />
+        { mainJSX } */}
+                    <View style={styles.SearchContainer} >
+                        <TextInput style={styles.InputContainer}
+                            placeholder="what are you looking for?"
+                            value= ''
+                            onChangeText= {() => this.handleSearch()}
+                        />
+                    </View>
+                    <FlatList 
+                        showsVerticalScrollIndicator={false}
+                        numColumns={1}
+                        data={this.state.productOrigin}
+                        renderItem={({ item }) => <Card product={item} />}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -116,6 +164,27 @@ const styles = StyleSheet.create({
         color: '#fff', 
         fontFamily: 'Avenir', 
         fontSize: 15
+    },
+    SearchContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        paddingTop: 20,
+        margin: 5,
+        alignItems: 'center',
+        height: 50
+    },
+    InputContainer: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: '#7F7F7F',
+        borderRadius: 5,
+        marginRight: 5,
+        padding: 3,
+        fontSize: 18
+    },
+    ItemContainer: {
+        flex: 1,
+        flexDirection: 'row'
     }
 });
 
