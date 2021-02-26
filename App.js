@@ -26,7 +26,9 @@ export default class App extends Component {
           <Stack.Screen name="Details" component={Details} 
             options={{headerShown: false}}
           />
-          <Stack.Screen name="Authentication" component={Authentication} />
+          <Stack.Screen name="Authentication" component={Authentication} 
+          />
+          <Stack.Screen name="AddPost" component={AddPost} />
         </Stack.Navigator>
 
         return (
