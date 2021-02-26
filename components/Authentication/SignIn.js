@@ -4,67 +4,110 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-nativ
 import saveToken from '../../api/saveToken';
 
 
-export default class SignIn extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: ''
-        };
-    }
+// export default class SignIn extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             username: '',
+//             password: ''
+//         };
+//     }
 
 
-    onSignIn() {
-        const { username, password } = this.state;
-        // const myURL= "https://shopping-api-app.herokuapp.com/users/login";
+//     onSignIn() {
+//         const { username, password } = this.state;
+//         const req = {
+//                         "username": username,
+//                         "password": password
+//                     }
+//                     axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+//                     .then(
+//                         res => {
+//                             this.props.navigation.navigate();
+//                         }
+//                     )
+//                     if(username.length == 0 | password.length == 0) {
+//                         alert('Wrong Input!, Username or password field cannot be empty.');
+//                     }
+//                     else {
+//                         alert("login successful!");
+//                     }
+//                 }
+            
+        
+    
+
+//     render() {
+//         const { inputStyle, bigButton, buttonText } = styles;
+//         const { username, password } = this.state;
+//         return (
+//             <View>
+//                 <TextInput
+//                     style={inputStyle}
+//                     placeholder="Enter your username"
+//                     value={username}
+//                     onChangeText={text => this.setState({ username: text })}
+//                 />
+//                 <TextInput
+//                     style={inputStyle}
+//                     placeholder="Enter your password"
+//                     value={password}
+//                     onChangeText={text => this.setState({ password: text })}
+//                     secureTextEntry
+//                 />
+//                 <TouchableOpacity style={bigButton} onPress={this.onSignIn.bind(this)}>
+//                     <Text style={buttonText}>SIGN IN NOW</Text>
+//                 </TouchableOpacity>
+//             </View>
+//         );
+//     }
+// }
+const SignIn = () => {
+    const [username, setusername] = useState('');
+    const [password, setpassword] = useState('');
+    
+    const onSignIn = () => {
         const req = {
             "username": username,
             "password": password
-        };
+        }
+        axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+        .then(
+            res => {
+                console.log(res);
+            }
+        )
         if(username.length == 0 | password.length == 0) {
             alert('Wrong Input!, Username or password field cannot be empty.');
         }
         else {
-            axios.post("https://shopping-api-app.herokuapp.com/users/login", req)
-            .then(
-                res => {
-                    console.warn(res);
-                //     this.props.navigation.navigate('Main');
-                    
-                // },
-                // err => {
-                //     alert("wrong!")
-                 }
-                
-            )
+            alert("login successful!");
         }
     }
 
-    render() {
-        const { inputStyle, bigButton, buttonText } = styles;
-        const { username, password } = this.state;
-        return (
-            <View>
-                <TextInput
-                    style={inputStyle}
-                    placeholder="Enter your username"
+    
+    return (
+        <View>
+//              <TextInput 
+                    style={styles.inputStyle} 
+                    placeholder="Enter your name" 
                     value={username}
-                    onChangeText={text => this.setState({ username: text })}
+                    onChangeText={(txtUsername) => setusername(txtUsername)}
                 />
-                <TextInput
-                    style={inputStyle}
-                    placeholder="Enter your password"
+                <TextInput 
+                    style={styles.inputStyle} 
+                    placeholder="Enter your password" 
                     value={password}
-                    onChangeText={text => this.setState({ password: text })}
                     secureTextEntry
+                    onChangeText={(txtPassword) => setpassword(txtPassword)}
                 />
-                <TouchableOpacity style={bigButton} onPress={this.onSignIn.bind(this)}>
-                    <Text style={buttonText}>SIGN IN NOW</Text>
+                <TouchableOpacity style={styles.bigButton} onPress={() => onSignIn()}>
+                    <Text style={styles.buttonText}>SIGN IN NOW</Text>
                 </TouchableOpacity>
-            </View>
-        );
-    }
+        </View>
+    );
 }
+
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -88,3 +131,6 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     }
 });
+
+
+export default SignIn;

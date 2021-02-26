@@ -8,6 +8,7 @@ const SignUp = () => {
     const [password, setpassword] = useState('');
     const [rePassword, setrePassword] = useState('');
     const registerUser = () => {
+        
         const req = {
             "username": username,
             "password": password
