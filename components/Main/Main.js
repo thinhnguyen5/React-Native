@@ -5,6 +5,7 @@ import saveToken from '../../api/saveToken';
 import items from '../../data';
 import { FlatList, ScrollView, TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import FontAwesome5 from '@expo/vector-icons';
+import axios from 'axios';
 
 class Main extends Component {
     constructor(props) {
@@ -35,15 +36,15 @@ class Main extends Component {
 
     /////////////Fetch api
     componentDidMount() {
-        const myURL = 'https://shopping-api-app.herokuapp.com/products'
-        fetch(myURL)
-        .then((response) => response.json())
-        .then((responseJson) => {
+        const myURL = "https://shopping-api-app.herokuapp.com/products"
+        axios.get(myURL)
+        .then(response => {
             this.setState({
-                productOrigin: responseJson
+                productOrigin: response.data
             })
+            console.log("fetch data: ", this.state.productOrigin);
         })
-        .catch((error) => {
+        .catch(error => {
             console.log(error);
         })
     }
