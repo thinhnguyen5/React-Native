@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Authentication from './components/Authentication/Authentication';
+import SignIn from './components/Authentication/SignIn';
 import Main from './components/Main/Main';
 import AddPost from './components/AddPost/AddPost';
 import { Ionicons } from 'react-native-vector-icons';
@@ -29,6 +30,7 @@ export default class App extends Component {
           <Stack.Screen name="Authentication" component={Authentication} 
           />
           <Stack.Screen name="AddPost" component={AddPost} />
+          <Stack.Screen name="SignIn" component={SignIn} />
         </Stack.Navigator>
 
         return (

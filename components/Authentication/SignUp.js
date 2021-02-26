@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React, { Component, useState } from 'react';
-import { render } from 'react-dom';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert, Button } from 'react-native';
 import register from '../../api/register';
 
@@ -8,6 +8,16 @@ const SignUp = () => {
     const [password, setpassword] = useState('');
     const [rePassword, setrePassword] = useState('');
     const registerUser = () => {
+        const req = {
+            "username": username,
+            "password": password
+        }
+        axios.post("https://shopping-api-app.herokuapp.com/users/register", req)
+        .then(
+            res => {
+                console.log(res);
+            }
+        )
         if(password != rePassword) {
             alert("it is not the same!");
         }
@@ -15,8 +25,6 @@ const SignUp = () => {
             alert("register successful!");
         }
     }
-
-  render()  
     return (
         <View>
                 <TextInput 
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        // fontFamily: 'Avenir',
+        fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }

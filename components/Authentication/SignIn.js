@@ -16,21 +16,28 @@ export default class SignIn extends Component {
 
     onSignIn() {
         const { username, password } = this.state;
-        
         // const myURL= "https://shopping-api-app.herokuapp.com/users/login";
         const req = {
             username: username,
             password: password
         };
-        axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+        if(username.length == 0 | password.length == 0) {
+            alert('Wrong Input!, Username or password field cannot be empty.');
+        }
+        else {
+            axios.post("https://shopping-api-app.herokuapp.com/users/login", req)
             .then(
                 res => {
-                    // this.props.navigation.navigate('Main');
                     console.warn(res);
-                })
-            .catch(err => {
-                    alert("wrong!");
-                })
+                //     this.props.navigation.navigate('Main');
+                    
+                // },
+                // err => {
+                //     alert("wrong!")
+                 }
+                
+            )
+        }
     }
 
     render() {
