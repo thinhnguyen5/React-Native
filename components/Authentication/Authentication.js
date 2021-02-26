@@ -25,8 +25,8 @@ export default class Authentication extends Component {
     }
 
     goBackToMain() {
-        // const { navigator } = this.props;
-        // navigator.pop();
+        const { navigator } = this.props;
+        navigator.pop();
     }
     render() {
         const {
