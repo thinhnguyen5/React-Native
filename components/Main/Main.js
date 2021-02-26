@@ -12,7 +12,8 @@ class Main extends Component {
         this.state = { user: null,
             productOrigin: items,
             strSearch: '',
-            tam: ''
+            myURL: 'https://shopping-api-app.herokuapp.com/products',
+            tam: []
         };
         global.onSignIn = this.onSignIn.bind(this);
     }
@@ -34,6 +35,22 @@ class Main extends Component {
         navigator.push({ name: 'ADD_POST'});
     }
 
+    /////////////Fetch api
+    componentDidMount() {
+        fetch(this.state.myURL)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            this.setState({
+                tam: responseJson
+            })
+            console.log("array tam: ",this.state.tam);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    /////////////Search
     handleSearch(txt) {
         this.setState({
             strSearch: txt
@@ -44,9 +61,9 @@ class Main extends Component {
         let {productOrigin} = this.state;
         let products = [];
         let {strSearch} = this.state;
-        console.log(strSearch);
-        products = productOrigin.filter(p => p.title.match(strSearch))
-        console.log("this is product: ", products);
+        products = productOrigin.filter(p => p.title.match(strSearch));
+        // console.log("this is product: ", products);
+        console.log(this.state.myURL);
         
         //get products//
         const Card = ({product}) => {
