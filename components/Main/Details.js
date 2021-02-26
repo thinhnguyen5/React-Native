@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import {FontAwesome5} from '@expo/vector-icons';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -7,6 +7,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 const Details = ({navigation, route}) => {
     const item = route.params;
     console.log(item);
+    const [logged, setlogged] = useState(true);
+
+    const handleDelete = (id) => {
+        alert(id);
+    }
 
     const ListImages = () => {
         return (
@@ -66,9 +71,10 @@ const Details = ({navigation, route}) => {
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
                         Location: {item.location}
                     </Text>
-                    <View>
-                        <Button title="Delete" 
-                            // onPress= {() => handleDelete(item.id)}
+                    <View style={{ marginTop: 70 }}>
+                        <Button title="Buy" 
+                        disabled = {logged === false}
+                            onPress= {() => handleDelete(item.id)}
                         />
                     </View>
                 </View>
