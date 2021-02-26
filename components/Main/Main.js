@@ -11,8 +11,8 @@ class Main extends Component {
         super(props);
         this.state = { user: null,
             productOrigin: items,
-            products: [],
-            strSearch: ''
+            strSearch: '',
+            tam: ''
         };
         global.onSignIn = this.onSignIn.bind(this);
     }
@@ -34,32 +34,20 @@ class Main extends Component {
         navigator.push({ name: 'ADD_POST'});
     }
 
-    handleSearch(txtSearch) {
-        // console.log(txtSearch);
-        let {productOrigin} = this.state;
-        let tempProduct = [];
-        if(txtSearch.length > 0) {
-            tempProduct = productOrigin.filter(p => p.title.match(txtSearch))
-            if(tempProduct) {
-                this.setState({
-                    products: tempProduct
-                })
-            }
-            else {
-                alert("No Results");
-            }
-        }
-        else {
-            this.setState({
-                products: productOrigin
-            })
-            console.log("Old Array: ", this.state.products);
-        }
+    handleSearch(txt) {
+        this.setState({
+            strSearch: txt
+        })
     }
     
     render() {
-        // console.log(this.state.productOrigin);
-
+        let {productOrigin} = this.state;
+        let products = [];
+        let {strSearch} = this.state;
+        console.log(strSearch);
+        products = productOrigin.filter(p => p.title.match(strSearch))
+        console.log("this is product: ", products);
+        
         //get products//
         const Card = ({product}) => {
             return (
@@ -99,7 +87,7 @@ class Main extends Component {
                     <FlatList 
                         showsVerticalScrollIndicator={false}
                         numColumns={1}
-                        data={this.state.products}
+                        data={products}
                         renderItem={({ item }) => <Card product={item} />}
                     />
                 </View>
