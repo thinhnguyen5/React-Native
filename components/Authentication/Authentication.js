@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     row1: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-    titleStyle: { color: '#000000', fontSize: 40 },
+    titleStyle: { color: '#000000', fontFamily: 'Avenir', fontSize: 40 },
     iconStyle: { width: 45, height: 45 },
     controlStyle: {
         flexDirection: 'row',

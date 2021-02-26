@@ -13,7 +13,7 @@ class Main extends Component {
             productOrigin: [],
             strSearch: ''
         };
-        global.onSignIn = this.onSignIn.bind(this);
+        
     }
     onSignIn(user) {
         this.setState({ user });
