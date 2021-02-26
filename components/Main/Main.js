@@ -10,10 +10,8 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = { user: null,
-            productOrigin: items,
-            strSearch: '',
-            myURL: 'https://shopping-api-app.herokuapp.com/products',
-            tam: []
+            productOrigin: [],
+            strSearch: ''
         };
         global.onSignIn = this.onSignIn.bind(this);
     }
@@ -37,13 +35,13 @@ class Main extends Component {
 
     /////////////Fetch api
     componentDidMount() {
-        fetch(this.state.myURL)
+        const myURL = 'https://shopping-api-app.herokuapp.com/products'
+        fetch(myURL)
         .then((response) => response.json())
         .then((responseJson) => {
             this.setState({
-                tam: responseJson
+                productOrigin: responseJson
             })
-            console.log("array tam: ",this.state.tam);
         })
         .catch((error) => {
             console.log(error);
@@ -63,7 +61,6 @@ class Main extends Component {
         let {strSearch} = this.state;
         products = productOrigin.filter(p => p.title.match(strSearch));
         // console.log("this is product: ", products);
-        console.log(this.state.myURL);
         
         //get products//
         const Card = ({product}) => {
