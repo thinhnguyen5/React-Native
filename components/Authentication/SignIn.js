@@ -1,7 +1,8 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import saveToken from '../../api/saveToken';
-import signIn from '../../api/signIn';
+
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -12,23 +13,24 @@ export default class SignIn extends Component {
         };
     }
 
+
     onSignIn() {
         const { username, password } = this.state;
-        signIn(username, password)
-        fetch(props.apiURI + '/users', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-          })
-            .then(res => {
-                global.onSignIn(res.user);
-                // this.props.goBackToMain();
-                saveToken(res.token);
-            })
-            .catch(err => console.log(err));
+        
+        // const myURL= "https://shopping-api-app.herokuapp.com/users/login";
+        const req = {
+            username: username,
+            password: password
+        };
+        axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+            .then(
+                res => {
+                    // this.props.navigation.navigate('Main');
+                    console.warn(res);
+                })
+            .catch(err => {
+                    alert("wrong!");
+                })
     }
 
     render() {
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontFamily: 'Avenir',
+        // fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }

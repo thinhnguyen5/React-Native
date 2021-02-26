@@ -5,13 +5,13 @@ import saveToken from '../../api/saveToken';
 import items from '../../data';
 import { FlatList, ScrollView, TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import FontAwesome5 from '@expo/vector-icons';
+import axios from 'axios';
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = { user: null,
-            productOrigin: items,
-            products: [],
+            productOrigin: [],
             strSearch: ''
         };
         global.onSignIn = this.onSignIn.bind(this);
@@ -34,32 +34,35 @@ class Main extends Component {
         navigator.push({ name: 'ADD_POST'});
     }
 
-    handleSearch(txtSearch) {
-        // console.log(txtSearch);
-        let {productOrigin} = this.state;
-        let tempProduct = [];
-        if(txtSearch.length > 0) {
-            tempProduct = productOrigin.filter(p => p.title.match(txtSearch))
-            if(tempProduct) {
-                this.setState({
-                    products: tempProduct
-                })
-            }
-            else {
-                alert("No Results");
-            }
-        }
-        else {
+    /////////////Fetch api
+    componentDidMount() {
+        const myURL = "https://shopping-api-app.herokuapp.com/products"
+        axios.get(myURL)
+        .then(response => {
             this.setState({
-                products: productOrigin
+                productOrigin: response.data
             })
-            console.log("Old Array: ", this.state.products);
-        }
+            console.log("fetch data: ", this.state.productOrigin);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+    /////////////Search
+    handleSearch(txt) {
+        this.setState({
+            strSearch: txt
+        })
     }
     
     render() {
-        // console.log(this.state.productOrigin);
-
+        let {productOrigin} = this.state;
+        let products = [];
+        let {strSearch} = this.state;
+        products = productOrigin.filter(p => p.title.match(strSearch));
+        // console.log("this is product: ", products);
+        
         //get products//
         const Card = ({product}) => {
             return (
@@ -99,7 +102,7 @@ class Main extends Component {
                     <FlatList 
                         showsVerticalScrollIndicator={false}
                         numColumns={1}
-                        data={this.state.products}
+                        data={products}
                         renderItem={({ item }) => <Card product={item} />}
                     />
                 </View>

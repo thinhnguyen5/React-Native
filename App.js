@@ -20,9 +20,15 @@ export default class App extends Component {
     render (){
       createMainStack = () =>
         <Stack.Navigator>
-          <Stack.Screen name="Main" component={Main} />
-          <Stack.Screen name="Details" component={Details} />
-          <Stack.Screen name="Authentication" component={Authentication} />
+          <Stack.Screen name="Main" component={Main} 
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Details" component={Details} 
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Authentication" component={Authentication} 
+          />
+          <Stack.Screen name="AddPost" component={AddPost} />
         </Stack.Navigator>
 
         return (

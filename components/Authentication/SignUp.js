@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import { render } from 'react-dom';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert, Button } from 'react-native';
 import register from '../../api/register';
 
@@ -14,6 +15,8 @@ const SignUp = () => {
             alert("register successful!");
         }
     }
+
+  render()  
     return (
         <View>
                 <TextInput 
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontFamily: 'Avenir',
+        // fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }
