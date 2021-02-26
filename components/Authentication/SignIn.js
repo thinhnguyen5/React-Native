@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import saveToken from '../../api/saveToken';
@@ -8,40 +9,32 @@ export default class SignIn extends Component {
         super(props);
         this.state = {
             username: '',
-            password: '',
-            myURL: 'https://shopping-api-app.herokuapp.com/users',
-            tam: []
+            password: ''
         };
     }
 
-    /////////////Fetch api
-    componentDidMount() {
-        fetch(this.state.myURL)
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({
-                tam: responseJson
-            })
-            console.log("array tam: ",this.state.tam);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
 
     onSignIn() {
         const { username, password } = this.state;
+        const myURL= "https://shopping-api-app.herokuapp.com/users/login";
+        const req = {
+            "username": username,
+            "password": password
+        };
         if(username.length == 0 | password.length == 0) {
-            alert('Wrong Input!', 'Username or password field cannot be empty.', [
-                {text: 'Okay'}
-            ]);
+            alert('Wrong Input!, Username or password field cannot be empty.');
         }
         else {
-            alert("login successful!");
-            
+            axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+            .then(
+                res => {
+                    this.props.navigation.navigate('Main');
+                },
+                err => {
+                    alert("wrong!")
+                }
+            )
         }
-       
-        
     }
 
     render() {
@@ -87,7 +80,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontFamily: 'Avenir',
+        // fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }

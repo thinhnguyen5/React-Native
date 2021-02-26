@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontFamily: 'Avenir',
+        // fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }
