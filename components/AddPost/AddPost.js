@@ -1,128 +1,117 @@
-import React, { useState } from 'react'
-import { View, Text, Image, StyleSheet, Button, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native'
-import LoadingScreen from './LoadingScreen'
-import * as ImagePicker from 'expo-image-picker'
-import * as Permissions from 'expo-permissions';
-import { PinchGestureHandler, ScrollView } from 'react-native-gesture-handler'
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native';
 
-const AddPost = (props) => {
-  const [photo, setPhoto] = useState(null);
-  const [imagePost, setImagePost] = useState("");
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [images, setImages] = useState("");
-  const [price, setPrice] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [dateofposting, setDateofposting] = useState("");
-  const [location, setLocation] = useState("");
-  const [Deliverytype, setDeliverytype] = useState("");
-  const [username, setUsername] = useState("");
-  const [phone, setPhone] = useState("");
+// import * as ImagePicker from 'expo-image-picker'
+// import * as Permissions from 'expo-permissions';
+import { PinchGestureHandler, ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
 
-  function picture() {
+const AddPost = () => {
+  // const [photo, setPhoto] = useState(null);
+  // const [imagePost, setImagePost] = useState("");
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState('');
+  const [price, setPrice] = useState('');
+  const [brand, setBrand] = useState('');
+  const [description, setDescription] = useState('');
+  const [dateOfPosting, setdateOfPosting] = useState('');
+  const [location, setLocation] = useState('');
+  const [DeliveryType, setDeliveryType] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
 
-    if (photo === null) {
-      return <></>
-    }
-    else {
-      console.log(photo.uri);
-      return <View><Image style={{ width: 200, height: 200, marginBottom: 20, alignSelf: 'center' }} source={photo}></Image></View>
-    }
-  }
-  openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+  // function picture() {
 
-    if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
-      return;
-    }
+  //   if (photo === null) {
+  //     return <></>
+  //   }
+  //   else {
+  //     console.log(photo.uri);
+  //     return <View><Image style={{ width: 200, height: 200, marginBottom: 20, alignSelf: 'center' }} source={photo}></Image></View>
+  //   }
+  // }
+  // openImagePickerAsync = async () => {
+  //   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    console.log(pickerResult);
+  //   if (permissionResult.granted === false) {
+  //     alert("Permission to access camera roll is required!");
+  //     return;
+  //   }
 
-    if (pickerResult.cancelled == true) {
-      alert('Image picker cancelled or failed');
-      return;
-    }
-    var source;
-    source = { uri: pickerResult.uri.replace('file://', ''), isStatic: true };
-    const fileNameSplit = pickerResult.uri.split('/');
-    const fileName = fileNameSplit[fileNameSplit.length - 1];
+  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
+  //   console.log(pickerResult);
 
-    let postForm = new FormData();
-    postForm.append('testFile', {
-      uri: pickerResult.uri,
-      name: fileName,
-      type: 'image/png'
-    });
-    postForm.append('foo', 'bar');
-    setPhoto(source);
-    setImages(fileName);
-    setImagePost(postForm);
-    console.log(postForm);
-  }
-  function postPressed() {
-    console.log(imagePost);
-    fetch(props.apiURI + '/fileUpload', {
-      method: "POST",
-      body: imagePost,
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-      .then(response => response.text())
-      .then(response => {
-        console.log("upload succes", response);
-        alert("Upload success!");
-        setPhoto(null);
-        setImagePost(null);
-      })
-      .catch(error => {
-        console.log("upload error", error);
-        alert("Upload failed!");
-      });
+  //   if (pickerResult.cancelled == true) {
+  //     alert('Image picker cancelled or failed');
+  //     return;
+  //   }
+  //   var source;
+  //   source = { uri: pickerResult.uri.replace('file://', ''), isStatic: true };
+  //   const fileNameSplit = pickerResult.uri.split('/');
+  //   const fileName = fileNameSplit[fileNameSplit.length - 1];
 
-    fetch(props.apiURI + '/products', {
-      method: 'POST',
+  //   let postForm = new FormData();
+  //   postForm.append('testFile', {
+  //     uri: pickerResult.uri,
+  //     name: fileName,
+  //     type: 'image/png'
+  //   });
+  //   postForm.append('foo', 'bar');
+  //   setPhoto(source);
+  //   setImages(fileName);
+  //   setImagePost(postForm);
+  //   console.log(postForm);
+  // }
+  const postPressed = () => {
+    // console.log(imagePost);
+    // fetch(props.apiURI + '/fileUpload', {
+    //   method: "POST",
+    //   body: imagePost,
+    //   headers: { 'Content-Type': 'multipart/form-data' }
+    // })
+    //   .then(response => response.text())
+    //   .then(response => {
+    //     console.log("upload succes", response);
+    //     alert("Upload success!");
+    //     setPhoto(null);
+    //     setImagePost(null);
+    //   })
+    //   .catch(error => {
+    //     console.log("upload error", error);
+    //     alert("Upload failed!");
+    //   });
+
+    const req = {
       body: JSON.stringify({
-        // idusers: props.user.id,
-        title: title,
-        category: category,
-        images: images,
-        price: price,
-        brand: brand,
-        description: description,
-        dateofposting: dateofposting,
-        location: location,
-        Deliverytype: Deliverytype,
-        username: username,
-        phone: phone,
-
-
-      }),
+      "title": title,
+      "category": category,
+      "image": image,
+      "price": price,
+      "brand": brand,
+      "description": description,
+      "dateOfPosting": dateOfPosting,
+      "location": location,
+      "DeliveryType": DeliveryType,
+      "username": username,
+      "phone": phone,
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer " + props.token
-      }
-    })
-      .then(response => {
-        if (response.status != 201) {
-          throw new Error("HTTP Code " + response.status + " - " + JSON.stringify(response.status));
-        }
-        return response.text();
-      })
-      .then(json => {
-        console.log(json);
-        props.updateData();
-      })
-      .catch(error => {
-        console.log("Error message:")
-        console.log(error.message)
-        alert('Cannot create new post')
-      });
-   
-
-
+        'Content-Type': 'multipart/form-data'
+       }
+      }),
   }
+  
+  axios.post("https://shopping-api-app.herokuapp.com/products/addproduct", req)
+  .then(
+    res => {
+        console.log(res);
+        alert("Create successful");
+    },
+    err => {
+      alert("Can not create");
+    }
+  )
+}
 
 
     return (
@@ -150,11 +139,17 @@ const AddPost = (props) => {
             </View>
             <View style={styles.inputBox}>
               <Text style={styles.text}>Images</Text>
-              <TouchableOpacity onPress={() => openImagePickerAsync()} style={{ borderWidth: 1, borderColor: 'black' }}>
+              <TextInput
+                style={styles.input}
+                value={image}
+                onChangeText={value => setImage(value)}
+              />
+              
+              {/* <TouchableOpacity onPress={() => openImagePickerAsync()} style={{ borderWidth: 1, borderColor: 'black' }}>
                 <Text>Pick a photo</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
-            {picture()}
+            {/* {picture()} */}
             <View style={styles.inputBox}></View>
             <View style={styles.inputBox}>
               <Text style={styles.text}>Price</Text>
@@ -184,8 +179,8 @@ const AddPost = (props) => {
               <Text style={styles.text}>Date Of Posting</Text>
               <TextInput
                 style={styles.input}
-                value={dateofposting}
-                onChangeText={value => setDateofposting(value)}
+                value={dateOfPosting}
+                onChangeText={value => setdateOfPosting(value)}
               />
             </View>
             <View style={styles.inputBox}>
@@ -200,8 +195,8 @@ const AddPost = (props) => {
               <Text style={styles.text}>Delivery</Text>
               <TextInput
                 style={styles.input}
-                value={Deliverytype}
-                onChangeText={value => setDeliverytype(value)}
+                value={DeliveryType}
+                onChangeText={value => setDeliveryType(value)}
               />
             </View>
             <View style={styles.inputBox}>
@@ -285,4 +280,4 @@ const styles = StyleSheet.create({
 
   }
 });
-export default AddPost
+export default AddPost;
