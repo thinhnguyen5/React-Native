@@ -13,21 +13,19 @@ const SignUp = () => {
             "username": username,
             "password": password
         }
-        axios.post("https://shopping-api-app.herokuapp.com/users/register", req)
-        .then(
-            res => {
-                console.log(res);
-                
-            },
-            err => {
-                alert("Username or password is wrong");
-            }
-        )
+        
         if(password != rePassword) {
             alert("It is not the same!");
         }
         else {
-            alert("Register successful!");
+            axios.post("https://shopping-api-app.herokuapp.com/users/register", req)
+            .then(res => {
+                console.log(res);
+                alert("Register successful!");
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
     }
     return (
@@ -83,7 +81,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText: {
-        fontFamily: 'Avenir',
         color: '#000000',
         fontWeight: '400'
     }
