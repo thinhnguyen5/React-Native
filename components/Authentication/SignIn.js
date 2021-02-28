@@ -16,29 +16,29 @@ export default class SignIn extends Component {
 
     onSignIn() {
         const { username, password } = this.state;
-        // const myURL= "https://shopping-api-app.herokuapp.com/users/login";
         const req = {
-            username: username,
-            password: password
-        };
-        if(username.length == 0 | password.length == 0) {
-            alert('Wrong Input!, Username or password field cannot be empty.');
-        }
-        else {
-            axios.post("https://shopping-api-app.herokuapp.com/users/login", req)
-            .then(
-                res => {
-                    console.warn(res);
-                //     this.props.navigation.navigate('Main');
-                    
-                // },
-                // err => {
-                //     alert("wrong!")
-                 }
-                
-            )
-        }
-    }
+                        "username": username,
+                        "password": password
+                    }
+                    axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+                    .then(
+                        res => {
+                            console.log(res);
+                            if(username.length == 0 | password.length == 0) {
+                                alert('Wrong Input!, Username or password field cannot be empty.');
+                            }
+                            else {
+                                alert("login successful!");
+                            }
+                        },
+                        err => {
+                            alert("Username or password is wrong");
+                        }
+                    )
+                }
+            
+        
+    
 
     render() {
         const { inputStyle, bigButton, buttonText } = styles;
@@ -65,6 +65,52 @@ export default class SignIn extends Component {
         );
     }
 }
+// const SignIn = () => {
+//     const [username, setusername] = useState('');
+//     const [password, setpassword] = useState('');
+    
+//     const onSignIn = () => {
+//         const req = {
+//             "username": username,
+//             "password": password
+//         }
+//         axios.get("https://shopping-api-app.herokuapp.com/users/login", req)
+//         .then(
+//             res => {
+//                 console.log(res);
+//             }
+//         )
+//         if(username.length == 0 | password.length == 0) {
+//             alert('Wrong Input!, Username or password field cannot be empty.');
+//         }
+//         else {
+//             alert("login successful!");
+//         }
+//     }
+
+    
+//     return (
+//         <View>
+// //              <TextInput 
+//                     style={styles.inputStyle} 
+//                     placeholder="Enter your name" 
+//                     value={username}
+//                     onChangeText={(txtUsername) => setusername(txtUsername)}
+//                 />
+//                 <TextInput 
+//                     style={styles.inputStyle} 
+//                     placeholder="Enter your password" 
+//                     value={password}
+//                     secureTextEntry
+//                     onChangeText={(txtPassword) => setpassword(txtPassword)}
+//                 />
+//                 <TouchableOpacity style={styles.bigButton} onPress={() => onSignIn()}>
+//                     <Text style={styles.buttonText}>SIGN IN NOW</Text>
+//                 </TouchableOpacity>
+//         </View>
+//     );
+// }
+
 
 const styles = StyleSheet.create({
     inputStyle: {
@@ -88,3 +134,6 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     }
 });
+
+
+// export default SignIn;
