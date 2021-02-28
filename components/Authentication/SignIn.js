@@ -24,14 +24,17 @@ export default class SignIn extends Component {
                     .then(
                         res => {
                             console.log(res);
+                            if(username.length == 0 | password.length == 0) {
+                                alert('Wrong Input!, Username or password field cannot be empty.');
+                            }
+                            else {
+                                alert("login successful!");
+                            }
+                        },
+                        err => {
+                            alert("Username or password is wrong");
                         }
                     )
-                    if(username.length == 0 | password.length == 0) {
-                        alert('Wrong Input!, Username or password field cannot be empty.');
-                    }
-                    else {
-                        alert("login successful!");
-                    }
                 }
             
         

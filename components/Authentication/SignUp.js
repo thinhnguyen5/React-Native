@@ -17,18 +17,18 @@ const SignUp = () => {
         .then(
             res => {
                 console.log(res);
-                alert("Login Successful");
+                
             },
             err => {
                 alert("Username or password is wrong");
             }
         )
-        // if(password != rePassword) {
-        //     alert("it is not the same!");
-        // }
-        // else {
-        //     alert("register successful!");
-        // }
+        if(password != rePassword) {
+            alert("It is not the same!");
+        }
+        else {
+            alert("Register successful!");
+        }
     }
     return (
         <View>

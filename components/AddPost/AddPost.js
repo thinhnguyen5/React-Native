@@ -52,16 +52,13 @@ const AddPost = () => {
   //   const fileName = fileNameSplit[fileNameSplit.length - 1];
 
   //   let postForm = new FormData();
-  //   postForm.append('testFile', {
+  //   postForm.append('uploads', {
   //     uri: pickerResult.uri,
   //     name: fileName,
   //     type: 'image/png'
   //   });
   //   postForm.append('foo', 'bar');
-  //   setPhoto(source);
-  //   setImages(fileName);
-  //   setImagePost(postForm);
-  //   console.log(postForm);
+  
   // }
   const postPressed = () => {
     // console.log(imagePost);
@@ -83,7 +80,7 @@ const AddPost = () => {
     //   });
 
     const req = {
-      body: JSON.stringify({
+      // body: JSON.stringify({
       "title": title,
       "category": category,
       "image": image,
@@ -96,19 +93,20 @@ const AddPost = () => {
       "username": username,
       "phone": phone,
       headers: {
-        'Content-Type': 'multipart/form-data'
-       }
-      }),
+        'Content-Type': 'application/form-data',
+        'Accept': 'application/json'
+      }
+      // }),
   }
   
   axios.post("https://shopping-api-app.herokuapp.com/products/addproduct", req)
   .then(
     res => {
-        console.log(res);
-        alert("Create successful");
+         console.log(res);
+         alert("Create successful");
     },
     err => {
-      alert("Can not create");
+         alert("Can not create");
     }
   )
 }
@@ -215,11 +213,11 @@ const AddPost = () => {
                 onChangeText={value => setPhone(value)}
               />
             </View>
-            <TouchableHighlight onPress={() => postPressed()}>
+            <TouchableOpacity onPress={() => postPressed()}>
               <View style={styles.primaryButton}>
                 <Text style={styles.primaryButtonText}>Add post</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
