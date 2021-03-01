@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native';
-
-// import * as ImagePicker from 'expo-image-picker'
-// import * as Permissions from 'expo-permissions';
 import { PinchGestureHandler, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 const AddPost = () => {
-  // const [photo, setPhoto] = useState(null);
-  // const [imagePost, setImagePost] = useState("");
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState([]);
   const [price, setPrice] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
@@ -20,209 +15,144 @@ const AddPost = () => {
   const [DeliveryType, setDeliveryType] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
-
-  // function picture() {
-
-  //   if (photo === null) {
-  //     return <></>
-  //   }
-  //   else {
-  //     console.log(photo.uri);
-  //     return <View><Image style={{ width: 200, height: 200, marginBottom: 20, alignSelf: 'center' }} source={photo}></Image></View>
-  //   }
-  // }
-  // openImagePickerAsync = async () => {
-  //   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
-
-  //   if (permissionResult.granted === false) {
-  //     alert("Permission to access camera roll is required!");
-  //     return;
-  //   }
-
-  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
-  //   console.log(pickerResult);
-
-  //   if (pickerResult.cancelled == true) {
-  //     alert('Image picker cancelled or failed');
-  //     return;
-  //   }
-  //   var source;
-  //   source = { uri: pickerResult.uri.replace('file://', ''), isStatic: true };
-  //   const fileNameSplit = pickerResult.uri.split('/');
-  //   const fileName = fileNameSplit[fileNameSplit.length - 1];
-
-  //   let postForm = new FormData();
-  //   postForm.append('uploads', {
-  //     uri: pickerResult.uri,
-  //     name: fileName,
-  //     type: 'image/png'
-  //   });
-  //   postForm.append('foo', 'bar');
-  
-  // }
+  const Object = {
+    title: title,
+    category: category,
+    image: image,
+    price: price,
+    brand: brand,
+    description: description,
+    dateOfPosting: dateOfPosting,
+    location: location,
+    DeliveryType: DeliveryType,
+    username: username,
+    phone: phone
+  };
   const postPressed = () => {
-    // console.log(imagePost);
-    // fetch(props.apiURI + '/fileUpload', {
-    //   method: "POST",
-    //   body: imagePost,
-    //   headers: { 'Content-Type': 'multipart/form-data' }
-    // })
-    //   .then(response => response.text())
-    //   .then(response => {
-    //     console.log("upload succes", response);
-    //     alert("Upload success!");
-    //     setPhoto(null);
-    //     setImagePost(null);
-    //   })
-    //   .catch(error => {
-    //     console.log("upload error", error);
-    //     alert("Upload failed!");
-    //   });
-
-    const req = {
-      // body: JSON.stringify({
-      "title": title,
-      "category": category,
-      "image": image,
-      "price": price,
-      "brand": brand,
-      "description": description,
-      "dateOfPosting": dateOfPosting,
-      "location": location,
-      "DeliveryType": DeliveryType,
-      "username": username,
-      "phone": phone,
-      headers: {
-        'Content-Type': 'application/form-data',
-        'Accept': 'application/json'
-      }
-      // }),
+      axios.post('https://shopping-api-app.herokuapp.com/products/addproduct', Object)
+      .then(res => {
+        console.log(res);
+        alert("Create successful");
+      })
+      .catch(err => {
+        console.log(err);
+        console.log(Object);
+      })
   }
-  
-  axios.post("https://shopping-api-app.herokuapp.com/products/addproduct", req)
-  .then(
-    res => {
-         console.log(res);
-         alert("Create successful");
-    },
-    err => {
-         alert("Can not create");
-    }
-  )
-}
 
 
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={styles.topBar}>
-          <Text style={styles.header}>Create New Item</Text>
-        </View>
-        <ScrollView style={{ flex: 5 }}>
-          <View style={styles.screen}>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Title</Text>
-              <TextInput
-                style={styles.input}
-                value={title}
-                onChangeText={value => setTitle(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Category</Text>
-              <TextInput
-                style={styles.input}
-                value={category}
-                onChangeText={value => setCategory(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Images</Text>
-              <TextInput
-                style={styles.input}
-                value={image}
-                onChangeText={value => setImage(value)}
-              />
-              
-              {/* <TouchableOpacity onPress={() => openImagePickerAsync()} style={{ borderWidth: 1, borderColor: 'black' }}>
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.topBar}>
+        <Text style={styles.header}>Create New Item</Text>
+      </View>
+      <ScrollView style={{ flex: 5 }}>
+        <View style={styles.screen}>
+
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Title</Text>
+            <TextInput
+              style={styles.input}
+              value={title}
+              onChangeText={value => setTitle(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Category</Text>
+            <TextInput
+              style={styles.input}
+              value={category}
+              onChangeText={value => setCategory(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Images</Text>
+            <TextInput
+              style={styles.input}
+              value={image}
+              onChangeText={value => setImage(value)}
+            />
+
+            {/* <TouchableOpacity onPress={() => openImagePickerAsync()} style={{ borderWidth: 1, borderColor: 'black' }}>
                 <Text>Pick a photo</Text>
               </TouchableOpacity> */}
-            </View>
-            {/* {picture()} */}
-            <View style={styles.inputBox}></View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Price</Text>
-              <TextInput
-                style={styles.input}
-                value={price}
-                onChangeText={value => setPrice(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Brand</Text>
-              <TextInput
-                style={styles.input}
-                value={brand}
-                onChangeText={value => setBrand(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Description</Text>
-              <TextInput
-                style={styles.input}
-                value={description}
-                onChangeText={value => setDescription(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Date Of Posting</Text>
-              <TextInput
-                style={styles.input}
-                value={dateOfPosting}
-                onChangeText={value => setdateOfPosting(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Location</Text>
-              <TextInput
-                style={styles.input}
-                value={location}
-                onChangeText={value => setLocation(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Delivery</Text>
-              <TextInput
-                style={styles.input}
-                value={DeliveryType}
-                onChangeText={value => setDeliveryType(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>User Name</Text>
-              <TextInput
-                style={styles.input}
-                value={username}
-                onChangeText={value => setUsername(value)}
-              />
-            </View>
-            <View style={styles.inputBox}>
-              <Text style={styles.text}>Phone Number</Text>
-              <TextInput
-                style={styles.input}
-                value={phone}
-                onChangeText={value => setPhone(value)}
-              />
-            </View>
-            <TouchableOpacity onPress={() => postPressed()}>
-              <View style={styles.primaryButton}>
-                <Text style={styles.primaryButtonText}>Add post</Text>
-              </View>
-            </TouchableOpacity>
           </View>
-        </ScrollView>
-      </View>
-    )
-  }
+          {/* {picture()} */}
+          <View style={styles.inputBox}></View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Price</Text>
+            <TextInput
+              style={styles.input}
+              value={price}
+              onChangeText={value => setPrice(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Brand</Text>
+            <TextInput
+              style={styles.input}
+              value={brand}
+              onChangeText={value => setBrand(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Description</Text>
+            <TextInput
+              style={styles.input}
+              value={description}
+              onChangeText={value => setDescription(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Date Of Posting</Text>
+            <TextInput
+              style={styles.input}
+              value={dateOfPosting}
+              onChangeText={value => setdateOfPosting(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Location</Text>
+            <TextInput
+              style={styles.input}
+              value={location}
+              onChangeText={value => setLocation(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Delivery</Text>
+            <TextInput
+              style={styles.input}
+              value={DeliveryType}
+              onChangeText={value => setDeliveryType(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>User Name</Text>
+            <TextInput
+              style={styles.input}
+              value={username}
+              onChangeText={value => setUsername(value)}
+            />
+          </View>
+          <View style={styles.inputBox}>
+            <Text style={styles.text}>Phone Number</Text>
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={value => setPhone(value)}
+            />
+          </View>
+          <TouchableOpacity onPress={() => postPressed()}>
+            <View style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>Add post</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
+  )
+}
 
 
 const styles = StyleSheet.create({
